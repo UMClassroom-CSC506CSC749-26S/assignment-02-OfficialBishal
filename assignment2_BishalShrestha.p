@@ -23,7 +23,6 @@
 % Theorem: If a species is not an apex predator then there is an apex predator that depends on the species.
 % Theorem: An apex predator depends on all primary producers of all complete food chains that end at the apex predator.
 
-
 % Types
 
 tff(species_type,type,
@@ -62,7 +61,6 @@ tff(complete_foodchain_decl,type,
 tff(depends_decl,type,
     depends: ( species * species ) > $o ).
 
-
 % Axioms and Conjectures
 
 % Axiom: The eater of a food link eats the eaten of the link.
@@ -71,7 +69,7 @@ tff(eater_eats_eaten,axiom,
 
 % Axiom: The eaten and eater of a food link are not the same (no cannibalism).
 tff(no_cannibalism,axiom,
-    ( ! [L: foodlink] : ( eater(L) != eaten(L) ) ) ).
+    ! [L: foodlink] : ( eater(L) != eaten(L) ) ).
 
 % Axiom: Every species eats something or is eaten by something (or both).
 tff(eater_or_eaten,axiom,
@@ -95,15 +93,13 @@ tff(primary_producer_not_eater,conjecture,
 tff(primary_producer_eaten,conjecture,
     ! [S: species] :
       ( primary_producer(S)
-     => ? [S2: species] :
-          ( eats(S2,S) ) ) ).
+     => ? [S2: species] : eats(S2,S) ) ).
 
 % Theorem: If a species is not a primary producer then there is another species that it eats.
 tff(non_primary_producer_eats,conjecture,
     ! [S: species] :
       ( ~ primary_producer(S)
-     => ? [S2: species] :
-          ( eats(S,S2) ) ) ).
+     => ? [S2: species] : eats(S,S2) ) ).
 
 % Axiom: Something is an apex predator iff there is no species that eats it.
 tff(apex_predator_defn,axiom,
@@ -121,15 +117,13 @@ tff(apex_predator_not_eaten,conjecture,
 tff(apex_predator_eats,conjecture,
     ! [S: species] :
       ( apex_predator(S)
-     => ? [S2: species] :
-          ( eats(S,S2) ) ) ).
+     => ? [S2: species] : eats(S,S2) ) ).
 
 % Theorem: If a species is not a apex predator then there is another species that eats it.
 tff(non_apex_predator_eaten,conjecture,
     ! [S: species] :
       ( ~ apex_predator(S)
-     => ? [S2: species] :
-          ( eats(S2,S) ) ) ).
+     => ? [S2: species] : eats(S2,S) ) ).
 
 % Axiom: For every food chain, the start of the chain is the eaten of some food link, and one of the following holds: (i) the eater of the food link is the end of the food chain, xor (ii) there is a shorter food chain (shorter by one food link) from the eater of the food link to the end of the whole food chain.
 tff(foodchain_defn,axiom,
@@ -143,8 +137,10 @@ tff(foodchain_defn,axiom,
 
 % Axiom: There is no food chain from a species back to itself (no death spirals).
 tff(no_death_spirals,axiom,
-    ![S:species] :
-       ~ ? [C: foodchain] : ( S = start_of(C) & S = end_of(C) ) ).
+    ! [S: species] :
+      ~ ? [C: foodchain] :
+          ( ( S = start_of(C) )
+          & ( S = end_of(C) ) ) ).
 
 % Axiom: A complete food chain starts at a primary producer, and ends at an apex predator.
 tff(complete_foodchain_defn,axiom,
@@ -203,11 +199,11 @@ tff(non_apex_predator_has_dependent,conjecture,
 
 % Theorem: An apex predator depends on all primary producers of all complete food chains that end at the apex predator.
 tff(apex_predator_depends_on_producers,conjecture,
-    ! [S_apex: species, S_prod: species] :
-      ( (apex_predator(S_apex) & primary_producer(S_prod))
-      => ( ( ? [C: foodchain] :
-                ( complete_foodchain(C)
-                & ( end_of(C) = S_apex )
-                & ( start_of(C) = S_prod )
-                ) )
-          => depends(S_apex,S_prod) ) ) ).
+    ! [S_apex: species,S_prod: species] :
+      ( ( apex_predator(S_apex)
+        & primary_producer(S_prod) )
+     => ( ? [C: foodchain] :
+            ( complete_foodchain(C)
+            & ( end_of(C) = S_apex )
+            & ( start_of(C) = S_prod ) )
+       => depends(S_apex,S_prod) ) ) ).
