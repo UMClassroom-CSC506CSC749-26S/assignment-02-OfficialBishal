@@ -1,0 +1,172 @@
+% Checking upload ... % Checker ran ... % No errors ...
+% START OF SYSTEM OUTPUT
+Running first-order theorem proving
+Running: /home/tptp/Systems/E---3.3.0/eprover --delete-bad-limit=2000000000 --definitional-cnf=24 -s --print-statistics -R --print-version --proof-object --auto-schedule=8 --cpu-limit=60 /tmp/Y4yNOrZW0u/SOT_LtFxl4
+# Version: 3.0.0
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# Starting new_bool_1 with 60s (1) cores
+# Starting sh5l with 60s (1) cores
+# new_bool_3 with pid 1073713 completed with status 0
+# Result found by new_bool_3
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# SinE strategy is GSinE(CountFormulas,hypos,1.5,,3,20000,1.0)
+# Search class: FGHSS-FFMF21-SFFFFFNN
+# Scheduled 5 strats onto 1 cores with 60 seconds (60 total)
+# Starting SAT001_MinMin_p005000_rr_RG with 37s (1) cores
+# SAT001_MinMin_p005000_rr_RG with pid 1073717 completed with status 0
+# Result found by SAT001_MinMin_p005000_rr_RG
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# SinE strategy is GSinE(CountFormulas,hypos,1.5,,3,20000,1.0)
+# Search class: FGHSS-FFMF21-SFFFFFNN
+# Scheduled 5 strats onto 1 cores with 60 seconds (60 total)
+# Starting SAT001_MinMin_p005000_rr_RG with 37s (1) cores
+# Preprocessing time       : 0.001 s
+# Presaturation interreduction done
+
+# Proof found!
+# SZS status Theorem
+# SZS output start CNFRefutation
+tff(decl_sort1, type, species: $tType).
+tff(decl_sort2, type, foodlink: $tType).
+tff(decl_sort3, type, foodchain: $tType).
+tff(decl_23, type, primary_producer: species > $o).
+tff(decl_24, type, apex_predator: species > $o).
+tff(decl_25, type, eats: (species * species) > $o).
+tff(decl_26, type, eater: foodlink > species).
+tff(decl_27, type, eaten: foodlink > species).
+tff(decl_28, type, start_of: foodchain > species).
+tff(decl_29, type, end_of: foodchain > species).
+tff(decl_30, type, complete_foodchain: foodchain > $o).
+tff(decl_31, type, depends: (species * species) > $o).
+tff(decl_32, type, esk1_0: species).
+tff(decl_33, type, esk2_2: (species * species) > foodchain).
+tff(decl_34, type, esk3_1: species > species).
+tff(decl_38, type, esk7_1: species > foodchain).
+tff(decl_39, type, esk8_1: species > foodchain).
+tff(decl_40, type, esk9_1: species > foodchain).
+tff(decl_41, type, esk10_1: foodchain > foodlink).
+tff(decl_42, type, esk11_1: foodchain > foodchain).
+tff(apex_predator_defn, axiom, ![X2:species]:((apex_predator(X2)<=>~(?[X3:species]:(eats(X3,X2))))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', apex_predator_defn)).
+tff(eater_eats_eaten, axiom, ![X1:foodlink]:(eats(eater(X1),eaten(X1))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', eater_eats_eaten)).
+tff(foodchain_defn, axiom, ![X4:foodchain]:(?[X1:foodlink]:((start_of(X4)=eaten(X1)&(end_of(X4)=eater(X1)<~>?[X5:foodchain]:((start_of(X5)=eater(X1)&end_of(X5)=end_of(X4))))))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', foodchain_defn)).
+tff(every_species_in_complete_chain, axiom, ![X2:species]:(?[X4:foodchain]:((complete_foodchain(X4)&(X2=start_of(X4)|X2=end_of(X4)|?[X6:foodchain, X5:foodchain]:((((((start_of(X6)=start_of(X4)&end_of(X6)=X2)&start_of(X5)=X2)&end_of(X5)=end_of(X4))&~(complete_foodchain(X6)))&~(complete_foodchain(X5)))))))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', every_species_in_complete_chain)).
+tff(complete_foodchain_defn, axiom, ![X4:foodchain]:((complete_foodchain(X4)<=>(primary_producer(start_of(X4))&apex_predator(end_of(X4))))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', complete_foodchain_defn)).
+tff(depends_defn, axiom, ![X7:species, X3:species]:((depends(X7,X3)<=>?[X4:foodchain]:((start_of(X4)=X3&end_of(X4)=X7)))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', depends_defn)).
+tff(non_apex_predator_has_dependent, conjecture, ![X2:species]:((~(apex_predator(X2))=>?[X8:species]:((apex_predator(X8)&depends(X8,X2))))), file('/tmp/Y4yNOrZW0u/SOT_LtFxl4', non_apex_predator_has_dependent)).
+tff(c_0_7, plain, ![X17:species, X18:species, X19:species]:(((~apex_predator(X17)|~eats(X18,X17))&(eats(esk3_1(X19),X19)|apex_predator(X19)))), inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[apex_predator_defn])])])])])])).
+tff(c_0_8, plain, ![X24:foodlink]:(eats(eater(X24),eaten(X24))), inference(variable_rename,[status(thm)],[eater_eats_eaten])).
+tff(c_0_9, plain, ![X4:foodchain]:(?[X1:foodlink]:((start_of(X4)=eaten(X1)&~((end_of(X4)=eater(X1)<=>?[X5:foodchain]:((start_of(X5)=eater(X1)&end_of(X5)=end_of(X4)))))))), inference(fof_simplification,[status(thm)],[foodchain_defn])).
+tcf(c_0_10, plain, ![X3:species, X2:species]:((~apex_predator(X2)|~eats(X3,X2))), inference(split_conjunct,[status(thm)],[c_0_7])).
+tcf(c_0_11, plain, ![X1:foodlink]:(eats(eater(X1),eaten(X1))), inference(split_conjunct,[status(thm)],[c_0_8])).
+tff(c_0_12, plain, ![X37:foodchain, X39:foodchain]:((start_of(X37)=eaten(esk10_1(X37))&((end_of(X37)!=eater(esk10_1(X37))|(start_of(X39)!=eater(esk10_1(X37))|end_of(X39)!=end_of(X37)))&((start_of(esk11_1(X37))=eater(esk10_1(X37))|end_of(X37)=eater(esk10_1(X37)))&(end_of(esk11_1(X37))=end_of(X37)|end_of(X37)=eater(esk10_1(X37))))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_9])])])])])])).
+tff(c_0_13, plain, ![X2:species]:(?[X4:foodchain]:((complete_foodchain(X4)&(X2=start_of(X4)|X2=end_of(X4)|?[X6:foodchain, X5:foodchain]:((((((start_of(X6)=start_of(X4)&end_of(X6)=X2)&start_of(X5)=X2)&end_of(X5)=end_of(X4))&~complete_foodchain(X6))&~complete_foodchain(X5))))))), inference(fof_simplification,[status(thm)],[every_species_in_complete_chain])).
+tcf(c_0_14, plain, ![X1:foodlink]:(~apex_predator(eaten(X1))), inference(spm,[status(thm)],[c_0_10, c_0_11])).
+tcf(c_0_15, plain, ![X4:foodchain]:(start_of(X4)=eaten(esk10_1(X4))), inference(split_conjunct,[status(thm)],[c_0_12])).
+tff(c_0_16, plain, ![X32:species]:((complete_foodchain(esk7_1(X32))&((((((start_of(esk8_1(X32))=start_of(esk7_1(X32))|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32))))&(end_of(esk8_1(X32))=X32|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32)))))&(start_of(esk9_1(X32))=X32|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32)))))&(end_of(esk9_1(X32))=end_of(esk7_1(X32))|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32)))))&(~complete_foodchain(esk8_1(X32))|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32)))))&(~complete_foodchain(esk9_1(X32))|(X32=start_of(esk7_1(X32))|X32=end_of(esk7_1(X32))))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[c_0_13])])])])).
+tcf(c_0_17, plain, ![X4:foodchain]:(~apex_predator(start_of(X4))), inference(spm,[status(thm)],[c_0_14, c_0_15])).
+tcf(c_0_18, plain, ![X2:species]:((start_of(esk9_1(X2))=X2|X2=start_of(esk7_1(X2))|X2=end_of(esk7_1(X2)))), inference(split_conjunct,[status(thm)],[c_0_16])).
+tff(c_0_19, plain, ![X21:foodchain]:((((primary_producer(start_of(X21))|~complete_foodchain(X21))&(apex_predator(end_of(X21))|~complete_foodchain(X21)))&(~primary_producer(start_of(X21))|~apex_predator(end_of(X21))|complete_foodchain(X21)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[complete_foodchain_defn])])])])).
+tff(c_0_20, plain, ![X11:species, X12:species, X14:species, X15:species, X16:foodchain]:((((start_of(esk2_2(X11,X12))=X12|~depends(X11,X12))&(end_of(esk2_2(X11,X12))=X11|~depends(X11,X12)))&(start_of(X16)!=X15|end_of(X16)!=X14|depends(X14,X15)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[depends_defn])])])])])])])).
+tcf(c_0_21, plain, ![X2:species]:((end_of(esk7_1(X2))=X2|start_of(esk7_1(X2))=X2|~apex_predator(X2))), inference(spm,[status(thm)],[c_0_17, c_0_18])).
+tcf(c_0_22, plain, ![X4:foodchain]:((apex_predator(end_of(X4))|~complete_foodchain(X4))), inference(split_conjunct,[status(thm)],[c_0_19])).
+tff(c_0_23, negated_conjecture, ~(![X2:species]:((~apex_predator(X2)=>?[X8:species]:((apex_predator(X8)&depends(X8,X2)))))), inference(fof_simplification,[status(thm)],[inference(assume_negation,[status(cth)],[non_apex_predator_has_dependent])])).
+tcf(c_0_24, plain, ![X2:species, X4:foodchain, X3:species]:((depends(X3,X2)|start_of(X4)!=X2|end_of(X4)!=X3)), inference(split_conjunct,[status(thm)],[c_0_20])).
+tcf(c_0_25, plain, ![X4:foodchain]:((start_of(esk7_1(end_of(X4)))=end_of(X4)|end_of(esk7_1(end_of(X4)))=end_of(X4)|~complete_foodchain(X4))), inference(spm,[status(thm)],[c_0_21, c_0_22])).
+tff(c_0_26, negated_conjecture, ![X10:species]:((~apex_predator(esk1_0)&(~apex_predator(X10)|~depends(X10,esk1_0)))), inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_23])])])])])).
+tcf(c_0_27, plain, ![X4:foodchain]:(depends(end_of(X4),start_of(X4))), inference(er,[status(thm)],[inference(er,[status(thm)],[c_0_24])])).
+tcf(c_0_28, plain, ![X4:foodchain]:((end_of(esk7_1(end_of(X4)))=end_of(X4)|~complete_foodchain(X4))), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_17, c_0_25]), c_0_22])).
+tcf(c_0_29, plain, ![X2:species]:(complete_foodchain(esk7_1(X2))), inference(split_conjunct,[status(thm)],[c_0_16])).
+tcf(c_0_30, negated_conjecture, ![X2:species]:((~apex_predator(X2)|~depends(X2,esk1_0))), inference(split_conjunct,[status(thm)],[c_0_26])).
+tcf(c_0_31, plain, ![X2:species]:((end_of(esk7_1(X2))=X2|start_of(esk7_1(X2))=X2|depends(end_of(esk9_1(X2)),X2))), inference(spm,[status(thm)],[c_0_27, c_0_18])).
+tcf(c_0_32, plain, ![X2:species]:(end_of(esk7_1(end_of(esk7_1(X2))))=end_of(esk7_1(X2))), inference(spm,[status(thm)],[c_0_28, c_0_29])).
+tcf(c_0_33, negated_conjecture, (start_of(esk7_1(esk1_0))=esk1_0|end_of(esk7_1(esk1_0))=esk1_0|~apex_predator(end_of(esk9_1(esk1_0)))), inference(spm,[status(thm)],[c_0_30, c_0_31])).
+tcf(c_0_34, plain, ![X2:species]:((end_of(esk9_1(X2))=end_of(esk7_1(X2))|X2=start_of(esk7_1(X2))|X2=end_of(esk7_1(X2)))), inference(split_conjunct,[status(thm)],[c_0_16])).
+tcf(c_0_35, plain, ![X2:species]:(apex_predator(end_of(esk7_1(X2)))), inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_22, c_0_32]), c_0_29])])).
+tcf(c_0_36, negated_conjecture, (end_of(esk7_1(esk1_0))=esk1_0|start_of(esk7_1(esk1_0))=esk1_0), inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_33, c_0_34]), c_0_35])])).
+tcf(c_0_37, negated_conjecture, (end_of(esk7_1(esk1_0))=esk1_0|depends(end_of(esk7_1(esk1_0)),esk1_0)), inference(spm,[status(thm)],[c_0_27, c_0_36])).
+tcf(c_0_38, negated_conjecture, end_of(esk7_1(esk1_0))=esk1_0, inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_30, c_0_37]), c_0_35])])).
+tcf(c_0_39, negated_conjecture, ~apex_predator(esk1_0), inference(split_conjunct,[status(thm)],[c_0_26])).
+cnf(c_0_40, negated_conjecture, ($false), inference(sr,[status(thm)],[inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_22, c_0_38]), c_0_29])]), c_0_39]), ['proof']).
+# SZS output end CNFRefutation
+# Parsed axioms                        : 23
+# Removed by relevancy pruning/SinE    : 12
+# Initial clauses                      : 27
+# Removed in clause preprocessing      : 0
+# Initial clauses in saturation        : 27
+# Processed clauses                    : 152
+# ...of these trivial                  : 0
+# ...subsumed                          : 33
+# ...remaining for further processing  : 119
+# Other redundant clauses eliminated   : 15
+# Clauses deleted for lack of memory   : 0
+# Backward-subsumed                    : 2
+# Backward-rewritten                   : 3
+# Generated clauses                    : 267
+# ...of the previous two non-redundant : 219
+# ...aggressively subsumed             : 0
+# Contextual simplify-reflections      : 1
+# Paramodulations                      : 253
+# Factorizations                       : 0
+# NegExts                              : 0
+# Equation resolutions                 : 15
+# Disequality decompositions           : 0
+# Total rewrite steps                  : 22
+# ...of those cached                   : 13
+# Propositional unsat checks           : 0
+#    Propositional check models        : 0
+#    Propositional check unsatisfiable : 0
+#    Propositional clauses             : 0
+#    Propositional clauses after purity: 0
+#    Propositional unsat core size     : 0
+#    Propositional preprocessing time  : 0.000
+#    Propositional encoding time       : 0.000
+#    Propositional solver time         : 0.000
+#    Success case prop preproc time    : 0.000
+#    Success case prop encoding time   : 0.000
+#    Success case prop solver time     : 0.000
+# Current number of processed clauses  : 85
+#    Positive orientable unit clauses  : 9
+#    Positive unorientable unit clauses: 0
+#    Negative unit clauses             : 8
+#    Non-unit-clauses                  : 68
+# Current number of unprocessed clauses: 117
+# ...number of literals in the above   : 440
+# Current number of archived formulas  : 0
+# Current number of archived clauses   : 32
+# Clause-clause subsumption calls (NU) : 559
+# Rec. Clause-clause subsumption calls : 370
+# Non-unit clause-clause subsumptions  : 16
+# Unit Clause-clause subsumption calls : 33
+# Rewrite failures with RHS unbound    : 0
+# BW rewrite match attempts            : 2
+# BW rewrite match successes           : 1
+# Condensation attempts                : 0
+# Condensation successes               : 0
+# Termbank termtop insertions          : 5725
+# Search garbage collected termcells   : 379
+
+# -------------------------------------------------
+# User time                : 0.011 s
+# System time              : 0.003 s
+# Total time               : 0.014 s
+# Maximum resident set size: 3608 pages
+
+# -------------------------------------------------
+# User time                : 0.011 s
+# System time              : 0.010 s
+# Total time               : 0.021 s
+# Maximum resident set size: 4608 pages
+% E exiting
+
+% END OF SYSTEM OUTPUT
+% RESULT: SOT_LtFxl4 - E---3.3.0 says Theorem - CPU = 0.00 WC = 0.06 
+% OUTPUT: SOT_LtFxl4 - E---3.3.0 says CNFRefutation - CPU = 0.00 WC = 0.06 

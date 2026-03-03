@@ -1,0 +1,131 @@
+% Checking upload ... % Checker ran ... % No errors ...
+% START OF SYSTEM OUTPUT
+Running first-order theorem proving
+Running: /home/tptp/Systems/E---3.3.0/eprover --delete-bad-limit=2000000000 --definitional-cnf=24 -s --print-statistics -R --print-version --proof-object --auto-schedule=8 --cpu-limit=60 /tmp/tEeZVcpab1/SOT_nSexmY
+# Version: 3.0.0
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# Starting new_bool_1 with 60s (1) cores
+# Starting sh5l with 60s (1) cores
+# new_bool_3 with pid 1073039 completed with status 0
+# Result found by new_bool_3
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# SinE strategy is GSinE(CountFormulas,hypos,1.5,,3,20000,1.0)
+# Search class: FGHSF-FFSF11-SFFFFFNN
+# Scheduled 5 strats onto 1 cores with 60 seconds (60 total)
+# Starting G-E--_208_C18_F1_SE_CS_SP_PS_S5PRR_S4d with 37s (1) cores
+# G-E--_208_C18_F1_SE_CS_SP_PS_S5PRR_S4d with pid 1073042 completed with status 0
+# Result found by G-E--_208_C18_F1_SE_CS_SP_PS_S5PRR_S4d
+# Preprocessing class: FSMSSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_C18_F1_SE_CS_SOS_SP_PS_S5PRR_RG_S04AN with 300s (5) cores
+# Starting new_bool_3 with 60s (1) cores
+# SinE strategy is GSinE(CountFormulas,hypos,1.5,,3,20000,1.0)
+# Search class: FGHSF-FFSF11-SFFFFFNN
+# Scheduled 5 strats onto 1 cores with 60 seconds (60 total)
+# Starting G-E--_208_C18_F1_SE_CS_SP_PS_S5PRR_S4d with 37s (1) cores
+# Preprocessing time       : 0.002 s
+# Presaturation interreduction done
+
+# Proof found!
+# SZS status Theorem
+# SZS output start CNFRefutation
+tff(decl_sort1, type, species: $tType).
+tff(decl_24, type, apex_predator: species > $o).
+tff(decl_25, type, eats: (species * species) > $o).
+tff(decl_32, type, esk1_0: species).
+tff(decl_33, type, esk2_1: species > species).
+tff(decl_34, type, esk3_1: species > species).
+tff(decl_35, type, esk4_1: species > species).
+tff(apex_predator_eats, conjecture, ![X2:species]:((apex_predator(X2)=>?[X3:species]:(eats(X2,X3)))), file('/tmp/tEeZVcpab1/SOT_nSexmY', apex_predator_eats)).
+tff(apex_predator_defn, axiom, ![X2:species]:((apex_predator(X2)<=>~(?[X3:species]:(eats(X3,X2))))), file('/tmp/tEeZVcpab1/SOT_nSexmY', apex_predator_defn)).
+tff(eater_or_eaten, axiom, ![X2:species]:((?[X3:species]:(eats(X2,X3))|?[X3:species]:(eats(X3,X2)))), file('/tmp/tEeZVcpab1/SOT_nSexmY', eater_or_eaten)).
+tff(c_0_3, negated_conjecture, ~(![X2:species]:((apex_predator(X2)=>?[X3:species]:(eats(X2,X3))))), inference(assume_negation,[status(cth)],[apex_predator_eats])).
+tff(c_0_4, plain, ![X13:species, X14:species, X15:species]:(((~apex_predator(X13)|~eats(X14,X13))&(eats(esk4_1(X15),X15)|apex_predator(X15)))), inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[apex_predator_defn])])])])])])).
+tff(c_0_5, plain, ![X10:species]:((eats(X10,esk2_1(X10))|eats(esk3_1(X10),X10))), inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[eater_or_eaten])])).
+tff(c_0_6, negated_conjecture, ![X9:species]:((apex_predator(esk1_0)&~eats(esk1_0,X9))), inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_3])])])])])).
+tcf(c_0_7, plain, ![X3:species, X2:species]:((~apex_predator(X2)|~eats(X3,X2))), inference(split_conjunct,[status(thm)],[c_0_4])).
+tcf(c_0_8, plain, ![X2:species]:((eats(X2,esk2_1(X2))|eats(esk3_1(X2),X2))), inference(split_conjunct,[status(thm)],[c_0_5])).
+tcf(c_0_9, negated_conjecture, ![X2:species]:(~eats(esk1_0,X2)), inference(split_conjunct,[status(thm)],[c_0_6])).
+tcf(c_0_10, plain, ![X2:species]:((eats(X2,esk2_1(X2))|~apex_predator(X2))), inference(spm,[status(thm)],[c_0_7, c_0_8])).
+tcf(c_0_11, negated_conjecture, apex_predator(esk1_0), inference(split_conjunct,[status(thm)],[c_0_6])).
+cnf(c_0_12, negated_conjecture, ($false), inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_9, c_0_10]), c_0_11])]), ['proof']).
+# SZS output end CNFRefutation
+# Parsed axioms                        : 23
+# Removed by relevancy pruning/SinE    : 16
+# Initial clauses                      : 18
+# Removed in clause preprocessing      : 0
+# Initial clauses in saturation        : 18
+# Processed clauses                    : 35
+# ...of these trivial                  : 0
+# ...subsumed                          : 0
+# ...remaining for further processing  : 35
+# Other redundant clauses eliminated   : 1
+# Clauses deleted for lack of memory   : 0
+# Backward-subsumed                    : 0
+# Backward-rewritten                   : 0
+# Generated clauses                    : 12
+# ...of the previous two non-redundant : 6
+# ...aggressively subsumed             : 0
+# Contextual simplify-reflections      : 0
+# Paramodulations                      : 11
+# Factorizations                       : 0
+# NegExts                              : 0
+# Equation resolutions                 : 1
+# Disequality decompositions           : 0
+# Total rewrite steps                  : 1
+# ...of those cached                   : 0
+# Propositional unsat checks           : 0
+#    Propositional check models        : 0
+#    Propositional check unsatisfiable : 0
+#    Propositional clauses             : 0
+#    Propositional clauses after purity: 0
+#    Propositional unsat core size     : 0
+#    Propositional preprocessing time  : 0.000
+#    Propositional encoding time       : 0.000
+#    Propositional solver time         : 0.000
+#    Success case prop preproc time    : 0.000
+#    Success case prop encoding time   : 0.000
+#    Success case prop solver time     : 0.000
+# Current number of processed clauses  : 16
+#    Positive orientable unit clauses  : 3
+#    Positive unorientable unit clauses: 0
+#    Negative unit clauses             : 2
+#    Non-unit-clauses                  : 11
+# Current number of unprocessed clauses: 7
+# ...number of literals in the above   : 20
+# Current number of archived formulas  : 0
+# Current number of archived clauses   : 18
+# Clause-clause subsumption calls (NU) : 3
+# Rec. Clause-clause subsumption calls : 3
+# Non-unit clause-clause subsumptions  : 0
+# Unit Clause-clause subsumption calls : 7
+# Rewrite failures with RHS unbound    : 0
+# BW rewrite match attempts            : 0
+# BW rewrite match successes           : 0
+# Condensation attempts                : 0
+# Condensation successes               : 0
+# Termbank termtop insertions          : 1250
+# Search garbage collected termcells   : 240
+
+# -------------------------------------------------
+# User time                : 0.004 s
+# System time              : 0.004 s
+# Total time               : 0.008 s
+# Maximum resident set size: 3604 pages
+
+# -------------------------------------------------
+# User time                : 0.007 s
+# System time              : 0.007 s
+# Total time               : 0.014 s
+# Maximum resident set size: 4608 pages
+% E exiting
+
+% END OF SYSTEM OUTPUT
+% RESULT: SOT_nSexmY - E---3.3.0 says Theorem - CPU = 0.01 WC = 0.06 
+% OUTPUT: SOT_nSexmY - E---3.3.0 says CNFRefutation - CPU = 0.01 WC = 0.06 
